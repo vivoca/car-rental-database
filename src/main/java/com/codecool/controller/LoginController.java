@@ -76,7 +76,7 @@ public class LoginController {
         } else {
             if (!(loginDB.checkIfEmailExists(req.queryParams("email")) || loginDB.checkIfUsernameExists(req.queryParams("username")))) {
                 loginDB.add(req.queryParams("username"), req.queryParams("password"), req.queryParams("email"));
-                res.redirect("/");
+                res.redirect("/signin");
             }else {
                 params.put("valid", false);
                 params.put("message", "Email or username already in use.");
