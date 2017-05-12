@@ -1,7 +1,5 @@
-package com.codecool.database;
+package com.codecool.database.dao;
 
-
-import com.codecool.database.AbstractDBHandler;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;

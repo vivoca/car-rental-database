@@ -1,6 +1,6 @@
 package com.codecool.controller;
 
-import com.codecool.database.UserLoginHandlerDAODB;
+import com.codecool.database.dao.UserLoginHandlerDAODB;
 import javassist.NotFoundException;
 import spark.ModelAndView;
 import spark.Request;

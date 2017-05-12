@@ -2,8 +2,8 @@ package com.codecool;
 
 
 import com.codecool.controller.LoginController;
-import com.codecool.database.AbstractDBHandler;
-import com.codecool.database.BuildTable;
+import com.codecool.database.dao.AbstractDBHandler;
+import com.codecool.database.TestDataDB;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 
@@ -14,7 +14,7 @@ public class Server {
     public static void main(String[] args) {
 
         staticFileLocation("/public");
-        BuildTable.build();
+        TestDataDB.populateData();
 
         before( "*", (request, response) ->
         {
