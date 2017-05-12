@@ -1,35 +1,58 @@
 package com.codecool.database.dao;
 
-import com.codecool.database.AbstractDBHandler;
 import com.codecool.model.Company;
+import javassist.NotFoundException;
 
-public class CompanyDAO extends AbstractDBHandler{
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-    private static CompanyDAO INSTANCE;
+public class CompanyDAODB extends AbstractDBHandler implements CompanyDAO {
 
-    public static  CompanyDAO getINSTANCE() {
+    private static CompanyDAODB INSTANCE;
+
+    public static CompanyDAODB getINSTANCE() {
         if (INSTANCE == null) {
-            INSTANCE = new CompanyDAO();
+            INSTANCE = new CompanyDAODB();
         }
         return INSTANCE;
     }
 
-    private CompanyDAO() {
+    private CompanyDAODB() {
     }
 
     @Override
     public void add(Company company) {
         try {
             PreparedStatement stmt;
-            stmt = getConnection().prepareStatement("INSERT INTO \"supplier\" (NAME, DESCRIPTION) VALUES (?, ?)");
-            stmt.setString(1, supplier.getName());
-            stmt.setString(2, supplier.getDescription());
+            stmt = getConnection().prepareStatement("INSERT INTO \"company\" (NAME) VALUES (?)");
+            stmt.setString(1, company.getName());
             stmt.executeUpdate();
-            LOGGER.info("Add method insert order name and the description into SupplierDB.");
-            LOGGER.info("Supplier name: {}, description: {}", supplier.getName(), supplier.getDescription());
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.error("Error occurred during order added into database: {}", e);
         }
+    }
+
+    @Override
+    public Company find ( int id) {
+        Company company;
+        String query = "SELECT * FROM company WHERE ID='" + id + "';";
+
+        try (
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)
+        ) {
+            if (resultSet.next()) {
+
+                company = new Company(resultSet.getInt("ID"), resultSet.getString("NAME"));
+
+                return company;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

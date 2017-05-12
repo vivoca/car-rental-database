@@ -29,7 +29,21 @@ public class BuildTable {
                                         "SALT  varchar(255) NOT NULL UNIQUE" +
                                         ");";
 
-            statement.execute(createLoginTable);
+            String createCompanyTable =  "DROP TABLE IF EXISTS company CASCADE;" +
+                                    "CREATE TABLE company" +
+                                    "(" +
+                                    "ID SERIAL PRIMARY KEY," +
+                                    "NAME varchar(255)" +
+                                    ");";
+
+            String createCarTable = "DROP TABLE IF EXISTS car CASCADE;" +
+                                    "CREATE TABLE car" +
+                                    "(" +
+                                    "ID SERIAL PRIMARY KEY," +
+                                    "NAME varchar(255)" +
+                                    ");";
+
+            statement.execute(createLoginTable + createCompanyTable + createCarTable);
         } catch (SQLException e) {
             e.printStackTrace();
         }

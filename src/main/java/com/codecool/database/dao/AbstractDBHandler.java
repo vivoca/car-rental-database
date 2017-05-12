@@ -1,4 +1,6 @@
-package com.codecool.database;
+package com.codecool.database.dao;
+
+import com.codecool.database.ConnectionPropertyValues;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
