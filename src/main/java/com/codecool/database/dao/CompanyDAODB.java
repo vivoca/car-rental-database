@@ -1,7 +1,6 @@
 package com.codecool.database.dao;
 
 import com.codecool.model.Company;
-import javassist.NotFoundException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +35,6 @@ public class CompanyDAODB extends AbstractDBHandler implements CompanyDAO {
 
     @Override
     public Company find ( int id) {
-        Company company;
         String query = "SELECT * FROM company WHERE ID='" + id + "';";
 
         try (
@@ -44,11 +42,7 @@ public class CompanyDAODB extends AbstractDBHandler implements CompanyDAO {
                 ResultSet resultSet = statement.executeQuery(query)
         ) {
             if (resultSet.next()) {
-
-                company = new Company(resultSet.getInt("ID"), resultSet.getString("NAME"));
-
-                return company;
-
+                return new Company(resultSet.getInt("ID"), resultSet.getString("NAME"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
